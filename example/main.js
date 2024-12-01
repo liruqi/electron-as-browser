@@ -15,7 +15,16 @@ function createWindow() {
     controlPanel: fileUrl(`${__dirname}/renderer/control.html`),
     startPage: 'https://google.com',
     blankTitle: 'New tab',
-    debug: true // will open controlPanel's devtools
+    debug: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      webviewTag: true
+    }
+  });
+
+  browser.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorDescription);
   });
 
   browser.on('closed', () => {
@@ -24,7 +33,11 @@ function createWindow() {
 }
 
 app.on('ready', async () => {
-  createWindow();
+  try {
+    await createWindow();
+  } catch (error) {
+    console.error('Error creating window:', error);
+  }
 });
 
 // Quit when all windows are closed.
