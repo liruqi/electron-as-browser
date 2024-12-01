@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+const { ipcRenderer } = require('electron');
 
 // Used in Renderer process
 
@@ -53,14 +53,12 @@ const sendNewTab = (url, references) => ipcRenderer.send('new-tab', url, referen
  */
 const sendSwitchTab = id => ipcRenderer.send('switch-tab', id);
 
-module.exports = {
-  sendEnterURL, // sendEnterURL(url) to load url
-  sendChangeURL, // sendChangeURL(url) on addressbar input change
-  sendGoBack,
-  sendGoForward,
-  sendReload,
-  sendStop,
-  sendNewTab, // sendNewTab([url])
-  sendSwitchTab, // sendSwitchTab(toID)
-  sendCloseTab // sendCloseTab(id)
-};
+exports.sendEnterURL = sendEnterURL; // sendEnterURL(url) to load url
+exports.sendChangeURL = sendChangeURL; // sendChangeURL(url) on addressbar input change
+exports.sendGoBack = sendGoBack;
+exports.sendGoForward = sendGoForward;
+exports.sendReload = sendReload;
+exports.sendStop = sendStop;
+exports.sendNewTab = sendNewTab; // sendNewTab([url])
+exports.sendSwitchTab = sendSwitchTab; // sendSwitchTab(toID)
+exports.sendCloseTab = sendCloseTab; // sendCloseTab(id)

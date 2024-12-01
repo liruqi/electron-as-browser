@@ -19,12 +19,16 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      webviewTag: true
+      webviewTag: true,
+      nodeIntegrationInWorker: true,
+      experimentalFeatures: true
     }
   });
 
-  browser.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
-    console.error('Failed to load:', errorDescription);
+  browser.once('ready-to-show', () => {
+    browser.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+      console.error('Failed to load:', errorDescription);
+    });
   });
 
   browser.on('closed', () => {

@@ -1,5 +1,5 @@
-import { ipcRenderer } from 'electron';
-import { useEffect, useState } from 'react';
+const { ipcRenderer } = require('electron');
+const { useEffect, useState } = require('react');
 
 // Used in Renderer process
 
@@ -12,7 +12,7 @@ const noop = () => {};
  * @param {function} options.onTabsUpdate - trigger after tabs updated(title, favicon, loading etc.)
  * @param {function} options.onTabActive - trigger after active tab changed
  */
-module.exports = function useConnect(options = {}) {
+function useConnect(options = {}) {
   const { onTabsUpdate = noop, onTabActive = noop } = options;
   const [tabs, setTabs] = useState({});
   const [tabIDs, setTabIDs] = useState([]);
@@ -48,4 +48,6 @@ module.exports = function useConnect(options = {}) {
   }, []);
 
   return { tabIDs, tabs, activeID };
-};
+}
+
+module.exports = useConnect;

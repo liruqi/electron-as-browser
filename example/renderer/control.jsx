@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
-import useConnect from '../../useConnect';
-import * as action from '../../control';
+import useConnect from '../../useConnect.cjs';
+import * as action from '../../control.cjs';
 
 const IconLoading = () => (
   <svg
@@ -181,5 +181,13 @@ function Control() {
   );
 }
 
-// eslint-disable-next-line no-undef
-ReactDOM.render(<Control />, document.getElementById('app'));
+// Update the rendering code to check for createRoot availability
+const container = document.getElementById('app');
+if (ReactDOM.createRoot) {
+  // React 18
+  const root = ReactDOM.createRoot(container);
+  root.render(<Control />);
+} else {
+  // React 17 and below
+  ReactDOM.render(<Control />, container);
+}
