@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import fileUrl from 'file-url';
-import BrowserLikeWindow from '../index';
+import BrowserLikeWindow from '../index.js';
 
 let browser;
 
