@@ -10,12 +10,24 @@ const __dirname = dirname(__filename);
 let browser;
 
 function createWindow() {
+  let winOptions = {}
+  if (process.platform === 'darwin') {
+    winOptions = {
+      titleBarStyle: 'hidden',
+      trafficLightPosition: {x: 15, y: 15}
+    }
+  } else if (process.platform === 'win32') {
+    winOptions = {
+      autoHideMenuBar: true
+    }
+  }
   browser = new BrowserLikeWindow({
     controlHeight: 99,
     controlPanel: fileUrl(`${__dirname}/renderer/control.html`),
     startPage: 'https://google.com',
     blankTitle: 'New tab',
     debug: true,
+    winOptions: winOptions,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
